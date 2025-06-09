@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Usuario } from './types/usuario.type';
+import { CrearUsuarioDto } from './dtos/create-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -25,4 +26,13 @@ export class UsuariosService {
         return this.usuarios.find((cat => cat.id === id))
     }
 
+    creacion(usuario: CrearUsuarioDto): Usuario {
+        const nuevoUsuario: Usuario  ={
+            id: (this.usuarios.findLast((item) => item.id > 0)?.id || 1) + 1,
+            ...usuario,
+        };
+
+        this.usuarios.push(nuevoUsuario);
+        return nuevoUsuario
+    }
 }
