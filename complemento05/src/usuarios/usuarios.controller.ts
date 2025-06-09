@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { Usuario } from './types/usuario.type';
 
@@ -10,6 +10,12 @@ export class UsuariosController {
     @Get()
     allCats(): Usuario[] {
         return this.UsuariosService.todosUsuarios();
+    }
+
+
+    @Get(':id')
+    obtenerId(@Param('id', new ParseIntPipe()) id: number): Usuario | undefined {
+        return this.UsuariosService.obtenerId(id)
     }
 }
 
