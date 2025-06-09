@@ -50,4 +50,15 @@ export class UsuariosService {
         return 'Registro actualizado'
         
     }
+
+   
+    
+    eliminar(id: number): string {
+    const eliminarCat = this.usuarios.findIndex(cat => cat.id === id);
+        if (eliminarCat === -1) {
+            return 'No se encontró el registro';
+    }
+        this.usuarios.splice(eliminarCat, 1);
+        return 'Registro eliminado';
+    }
 }
