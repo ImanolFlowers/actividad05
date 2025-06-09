@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Usuario } from './types/usuario.type';
 import { CrearUsuarioDto } from './dtos/create-usuario.dto';
+import { ActualizarUsuatioDto } from './dtos/update-usuarios.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -34,5 +35,19 @@ export class UsuariosService {
 
         this.usuarios.push(nuevoUsuario);
         return nuevoUsuario
+    }
+
+    actualizar(id: number, cat: ActualizarUsuatioDto){
+    
+        const encontrarCats = this.usuarios.findIndex(usuarios => usuarios.id === id);
+           if (encontrarCats === -1) {
+            return 'No se encontro el registro'
+           }  
+        this.usuarios[encontrarCats] = {
+            ...this.usuarios[encontrarCats],
+            ...cat,
+        };
+        return 'Registro actualizado'
+        
     }
 }
